@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feching Data</title>
+</head>
+<body>
+
+    <button  onclick="feching_func()"> Fetch Data</button>
+    <p></p> 
+    <div></div>
+
+
+    <script>
+
+ function feching_func() {
+    let  para = document.querySelector('p').innerHTML ='Loading...';
+    let xhr = new XMLHttpRequest();
+    xhr.onprogress = function(){
+        console.log('Loading...');
+
+    }
+    xhr.onload = function() {
+        let jsonObject = JSON.parse(this.responseText) 
+        console.log(this.responseText);
+        for(key in this.responseText){
+
+            div = document.querySelector('div').innerHTML = key + ": " + jsonObject[key];;
+        }
+    }
+  xhr.open('Get', 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY',true)
+  xhr.send()
+ }
+
+    </script>
+</body>
+</html>

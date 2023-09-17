@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feching Data</title>
+</head>
+<body>
+
+    <button  onclick="feching_func()"> Fetch Data</button>
+    <h2 id="loading"></h2>
+    <div>
+        <ul id="list">
+        </ul>
+    </div>
+
+
+
+
+    <script>
+
+ function feching_func() {
+    let  loading = document.querySelector('#loading');
+    loading.innerHTML ='Loading...';
+    let xhr = new XMLHttpRequest();
+    xhr.onprogress = function(){
+        console.log('Loading...');
+        
+
+    }
+    xhr.onload = function() {
+        let jsonObject = JSON.parse(this.responseText) 
+        console.log(this.responseText);
+        let list = document.getElementById('list')
+        names =''
+
+        for(key in jsonObject){
+          names +=`<li>${jsonObject[key].name} </li>`
+          
+          loading.innerHTML=''
+        }
+        list.innerHTML = names
+    }
+  xhr.open('Get', 'https://jsonplaceholder.typicode.com/users',true)
+  xhr.send()
+
+ }
+
+    </script>
+</body>
+</html>
